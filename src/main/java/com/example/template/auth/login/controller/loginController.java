@@ -27,7 +27,7 @@ public class loginController {
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
 
         String token = loginService.login(loginRequest.getId(), loginRequest.getPassword());
-
+asdasd
         if (token != null) {
             // ✅ JWT를 HttpOnly 쿠키로 내려보냄
             ResponseCookie cookie = ResponseCookie.from("accessToken", token)
@@ -42,7 +42,7 @@ public class loginController {
 
             return ResponseEntity.ok("로그인 성공"); // Body에 토큰은 없음
         }
-        
+
 
         return ResponseEntity.status(401).body("Unauthorized");
     }
