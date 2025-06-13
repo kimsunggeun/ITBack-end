@@ -1,0 +1,27 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.template.domain.comCode.mapper.comCodeMapper">
+
+    <select id="searchCode" resultType="com.example.template.domain.comCode.vo.comCode">
+        SELECT GUBUN,
+               CODE,
+               NAME,
+               PROPERTY1,
+               PROPERTY2,
+               PROPERTY3,
+               PROPERTY4,
+               USEYN,
+               BIGO,
+               CREDATE,
+               CREUSER,
+               MODATE,
+               MOUSER
+        FROM THIRAUTECH_LD.dbo.CON_BCODE;
+    </select>
+
+
+
+
+
+</mapper>
+
+

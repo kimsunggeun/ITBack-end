@@ -1,6 +1,9 @@
 package com.example.template.auth.login.controller;
+import com.example.template.api.apiResponse;
 import com.example.template.auth.login.service.loginService;
 import com.example.template.auth.login.vo.LoginRequest;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,53 +26,105 @@ public class loginController {
     private final loginService loginService;
 
 
+
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
+    public ResponseEntity<apiResponse<?>> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
 
-        String token = loginService.login(loginRequest.getId(), loginRequest.getPassword());
+        String accessToken = loginService.login(loginRequest.getId(), loginRequest.getPassword());
 
-        if (token != null) {
-            // ✅ JWT를 HttpOnly 쿠키로 내려보냄
-            ResponseCookie cookie = ResponseCookie.from("accessToken", token)
-                    .httpOnly(true)              // JS 접근 차단
-                    .secure(false)               // HTTPS 사용 시 true
-                    .path("/")                   // 모든 경로에 쿠키 적용
-                    .sameSite("Lax")             // CORS 대응 시 "None" 사용 가능
-                    .maxAge(60 * 60)             // 1시간
+        if (accessToken != null) {
+            // ✅ Refresh Token 생성
+            String refreshToken = jwtUtil.generateRefreshToken(loginRequest.getId());
+
+            // ✅ Access Token 쿠키
+            ResponseCookie accessCookie = ResponseCookie.from("accessToken", accessToken)
+                    .httpOnly(true)
+                    .secure(false) // 운영에서는 true
+                    .path("/")
+                    .sameSite("Lax")
+                    .maxAge(60 * 60) // 1시간
                     .build();
 
-            response.addHeader("Set-Cookie", cookie.toString());
+            // ✅ Refresh Token 쿠키
+            ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", refreshToken)
+                    .httpOnly(true)
+                    .secure(false) // 운영에서는 true
+                    .path("/")
+                    .sameSite("Lax")
+                    .maxAge(7 * 24 * 60 * 60) // 7일
+                    .build();
 
-            return ResponseEntity.ok("로그인 성공"); // Body에 토큰은 없음
+            // ✅ 쿠키 헤더로 설정
+            response.addHeader("Set-Cookie", accessCookie.toString());
+            response.addHeader("Set-Cookie", refreshCookie.toString());
+
+            // ✅ ApiResponse 형식으로 성공 메시지 반환
+            return ResponseEntity.ok(apiResponse.success("로그인 성공"));
         }
 
-
-        return ResponseEntity.status(401).body("Unauthorized");
+        // ✅ 실패 시 ApiResponse 에러 형식으로 반환
+        return ResponseEntity.status(401).body(apiResponse.error("아이디 또는 비밀번호가 잘못되었습니다.", 401));
     }
-
 
     @GetMapping("/check")
     public ResponseEntity<?> checkLoginStatus(HttpServletRequest request) {
         String token = jwtUtil.extractTokenFromCookie(request);
         if (token != null && jwtUtil.validateToken(token) != null) {
-            return ResponseEntity.ok().body("authenticated");
+            return ResponseEntity.ok(apiResponse.success("토큰 유효"));
         } else {
-            return ResponseEntity.status(401).body("unauthorized");
+            return ResponseEntity.status(401).body(apiResponse.error("토큰 만료됨", 401));
         }
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletResponse response) {
-        ResponseCookie cookie = ResponseCookie.from("accessToken", "")
+    public ResponseEntity<apiResponse<?>> logout(HttpServletResponse response) {
+        // ✅ accessToken 제거
+        ResponseCookie accessCookie = ResponseCookie.from("accessToken", "")
+                .httpOnly(true)
+                .secure(false) // 운영 시 true
+                .path("/")
+                .sameSite("Lax")
+                .maxAge(0) // 즉시 삭제
+                .build();
+
+        // ✅ refreshToken 제거도 함께
+        ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", "")
                 .httpOnly(true)
                 .secure(false)
                 .path("/")
                 .sameSite("Lax")
-                .maxAge(0) // 쿠키 제거
+                .maxAge(0)
                 .build();
 
-        response.setHeader("Set-Cookie", cookie.toString());
+        // ✅ 쿠키 제거
+        response.addHeader("Set-Cookie", accessCookie.toString());
+        response.addHeader("Set-Cookie", refreshCookie.toString());
 
-        return ResponseEntity.ok("로그아웃 완료");
+        // ✅ 통일된 응답 포맷으로 반환
+        return ResponseEntity.ok(apiResponse.success("로그아웃 완료"));
     }
+    
+//    리프레쉬 토큰
+@PostMapping("/refresh")
+public ResponseEntity<apiResponse<String>> refreshToken(HttpServletRequest request) {
+    String refreshToken = jwtUtil.extractRefreshTokenFromCookie(request);
+
+    if (refreshToken == null) {
+        return ResponseEntity.status(401).body(apiResponse.error("Refresh Token 없음", 401));
+    }
+
+    try {
+        Claims claims = jwtUtil.validateToken(refreshToken).getBody();
+        String username = claims.getSubject();
+
+        // 실제로는 DB에서 권한을 다시 불러오는 것이 안전함
+        String role = claims.get("role", String.class); // 없으면 직접 조회
+        String newAccessToken = jwtUtil.generateToken(username, role);
+
+        return ResponseEntity.ok(apiResponse.success(newAccessToken));
+
+    } catch (JwtException e) {
+        return ResponseEntity.status(401).body(apiResponse.error("Refresh Token 유효하지 않음", 401));
+    }
+}
 }

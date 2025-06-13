@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost:1433;databaseName=your_db
+    url: jdbc:sqlserver://1.240.13.84:4703;databaseName=PRE_DIAGNOSIS;encrypt=false;trustServerCertificate=true;
     username: sa
-    password: your_password
+    password: THiRA6531!@
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
 
 mybatis:

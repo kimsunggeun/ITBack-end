@@ -45,4 +45,28 @@ public class JwtUtil {
         }
         return null;
     }
+//    리프레쉬 토큰
+    public String generateRefreshToken(String username) {
+        Key key = Keys.hmacShaKeyFor(secret.getBytes());
+        long refreshExpiration = expiration * 7; // 예: 7일
+
+        return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + refreshExpiration))
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public String extractRefreshTokenFromCookie(HttpServletRequest request) {
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("refreshToken".equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
+    }
+
 }
