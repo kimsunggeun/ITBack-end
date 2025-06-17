@@ -13252,3 +13252,56 @@ CREUSER, MODATE, MOUSER FROM THIRAUTECH_LD.dbo.CON_BCODE;  {executed in 19 ms}
 2025-06-17 12:36:23.208 [http-nio-8080-exec-5] INFO  log4jdbc.log4j2 - 1. PreparedStatement.getUpdateCount() returned -1
 2025-06-17 12:36:23.208 [http-nio-8080-exec-5] INFO  log4jdbc.log4j2 - 1. PreparedStatement.close() returned 
 2025-06-17 12:36:23.208 [http-nio-8080-exec-5] INFO  log4jdbc.log4j2 - 1. Connection.clearWarnings() returned 
+2025-06-17 12:51:56.183 [main] INFO  com.example.template.TemplateApplication - Starting TemplateApplication using Java 17.0.15 with PID 26644 (C:\Users\A1292024037\Desktop\어프로티움 프레임워크\framework_v0.1\ITBack-end\build\classes\java\main started by A1292024037 in C:\Users\A1292024037\Desktop\어프로티움 프레임워크\framework_v0.1\ITBack-end)
+2025-06-17 12:51:56.185 [main] DEBUG com.example.template.TemplateApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2025-06-17 12:51:56.186 [main] INFO  com.example.template.TemplateApplication - No active profile set, falling back to 1 default profile: "default"
+2025-06-17 12:51:56.842 [main] DEBUG o.m.s.boot.autoconfigure.MybatisAutoConfiguration - Searching for mappers annotated with @Mapper
+2025-06-17 12:51:56.842 [main] DEBUG o.m.s.boot.autoconfigure.MybatisAutoConfiguration - Using auto-configuration base package 'com.example.template'
+2025-06-17 12:51:56.948 [main] DEBUG org.mybatis.spring.mapper.ClassPathMapperScanner - Identified candidate component class: file [C:\Users\A1292024037\Desktop\어프로티움 프레임워크\framework_v0.1\ITBack-end\build\classes\java\main\com\example\template\domain\comCode\mapper\comCodeMapper.class]
+2025-06-17 12:51:56.950 [main] DEBUG org.mybatis.spring.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'comCodeMapper' and 'com.example.template.domain.comCode.mapper.comCodeMapper' mapperInterface
+2025-06-17 12:51:57.324 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-06-17 12:51:57.336 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-06-17 12:51:57.338 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-17 12:51:57.339 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2025-06-17 12:51:57.421 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-17 12:51:57.422 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1190 ms
+2025-06-17 12:51:57.714 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [C:\Users\A1292024037\Desktop\어프로티움 프레임워크\framework_v0.1\ITBack-end\build\resources\main\mappers\comCode.xml]'
+2025-06-17 12:51:57.759 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: c7df0c33-080f-44a1-a9fa-9b9e0d9d09da
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-06-17 12:51:57.999 [main] INFO  o.s.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2b682e9, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@15586843, org.springframework.security.web.context.SecurityContextHolderFilter@734fbae3, org.springframework.security.web.header.HeaderWriterFilter@6f07d414, org.springframework.web.filter.CorsFilter@4fbb1144, org.springframework.security.web.authentication.logout.LogoutFilter@71dd4624, com.example.template.config.SecurityConfig$JwtFilter@e2b3026, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4a6a6a69, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5d7f1e59, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@38bc5ac0, org.springframework.security.web.access.ExceptionTranslationFilter@1fcaea93, org.springframework.security.web.access.intercept.AuthorizationFilter@2026fbff]
+2025-06-17 12:51:58.099 [main] DEBUG o.m.s.boot.autoconfigure.MybatisAutoConfiguration - Not found configuration for registering mapper bean using @MapperScan, MapperFactoryBean and MapperScannerConfigurer.
+2025-06-17 12:51:58.165 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-06-17 12:51:58.186 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2025-06-17 12:51:58.193 [main] INFO  com.example.template.TemplateApplication - Started TemplateApplication in 2.856 seconds (process running for 3.534)
+2025-06-17 12:51:58.331 [http-nio-8080-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-17 12:51:58.332 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-06-17 12:51:58.333 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-06-17 12:53:19.821 [main] INFO  com.example.template.TemplateApplication - Starting TemplateApplication using Java 17.0.15 with PID 9260 (C:\Users\A1292024037\Desktop\어프로티움 프레임워크\framework_v0.1\ITBack-end\build\classes\java\main started by A1292024037 in C:\Users\A1292024037\Desktop\어프로티움 프레임워크\framework_v0.1\ITBack-end)
+2025-06-17 12:53:19.823 [main] DEBUG com.example.template.TemplateApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2025-06-17 12:53:19.824 [main] INFO  com.example.template.TemplateApplication - No active profile set, falling back to 1 default profile: "default"
+2025-06-17 12:53:20.556 [main] DEBUG o.m.s.boot.autoconfigure.MybatisAutoConfiguration - Searching for mappers annotated with @Mapper
+2025-06-17 12:53:20.556 [main] DEBUG o.m.s.boot.autoconfigure.MybatisAutoConfiguration - Using auto-configuration base package 'com.example.template'
+2025-06-17 12:53:20.658 [main] DEBUG org.mybatis.spring.mapper.ClassPathMapperScanner - Identified candidate component class: file [C:\Users\A1292024037\Desktop\어프로티움 프레임워크\framework_v0.1\ITBack-end\build\classes\java\main\com\example\template\domain\comCode\mapper\comCodeMapper.class]
+2025-06-17 12:53:20.659 [main] DEBUG org.mybatis.spring.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'comCodeMapper' and 'com.example.template.domain.comCode.mapper.comCodeMapper' mapperInterface
+2025-06-17 12:53:21.017 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-06-17 12:53:21.026 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-06-17 12:53:21.027 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-17 12:53:21.027 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2025-06-17 12:53:21.103 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-17 12:53:21.104 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1234 ms
+2025-06-17 12:53:21.427 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [C:\Users\A1292024037\Desktop\어프로티움 프레임워크\framework_v0.1\ITBack-end\build\resources\main\mappers\comCode.xml]'
+2025-06-17 12:53:21.472 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: b36e8bad-b87d-47a0-accf-f801a1a80630
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-06-17 12:53:21.716 [main] INFO  o.s.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@749baa0c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1b3bec6c, org.springframework.security.web.context.SecurityContextHolderFilter@1c00d406, org.springframework.security.web.header.HeaderWriterFilter@3a861417, org.springframework.web.filter.CorsFilter@53f7a906, org.springframework.security.web.authentication.logout.LogoutFilter@66f2ec1c, com.example.template.config.SecurityConfig$JwtFilter@2154652c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@559d19c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@719c1faf, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@8b670c0, org.springframework.security.web.access.ExceptionTranslationFilter@5d7f1e59, org.springframework.security.web.access.intercept.AuthorizationFilter@6ef037e4]
+2025-06-17 12:53:21.816 [main] DEBUG o.m.s.boot.autoconfigure.MybatisAutoConfiguration - Not found configuration for registering mapper bean using @MapperScan, MapperFactoryBean and MapperScannerConfigurer.
+2025-06-17 12:53:21.880 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-06-17 12:53:21.901 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2025-06-17 12:53:21.908 [main] INFO  com.example.template.TemplateApplication - Started TemplateApplication in 2.941 seconds (process running for 3.601)
