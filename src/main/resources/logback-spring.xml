@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- 로그 경로 및 이름 지정 -->
+    <property name="LOG_PATH" value="logs" />
+    <property name="LOG_FILE" value="app" />
+
+    <!-- 콘솔 로그 Appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.classic.boolex.JaninoEventEvaluator">
+                <expression>
+                    <![CDATA[
+                            message != null && (
+                                message.contains("Connection.") ||
+                                message.contains("getAutoCommit") ||
+                                message.contains("getMetaData") ||
+                                message.contains("isReadOnly") ||
+                                message.contains("clearWarnings") ||
+                                 message.contains("opened") ||
+                                 message.contains("getUpdateCount") ||
+                                 message.contains("getMoreResults") ||
+                                 message.contains("ResultSet.") ||
+                                 message.contains("PreparedStatement.")
+                            )
+                        ]]>
+                </expression>
+            </evaluator>
+            <onMatch>DENY</onMatch>
+            <onMismatch>NEUTRAL</onMismatch>
+        </filter>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 파일 로그 Appender -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${LOG_FILE}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${LOG_FILE}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 특정 로거들에 대해 레벨 조정 -->
+    <logger name="jdbc.resultsettable" level="DEBUG" />
+    <logger name="jdbc.sqltiming" level="DEBUG" />
+    <logger name="jdbc.sqlonly" level="INFO" />
+    <logger name="jdbc.connection" level="WARN" />
+    <logger name="jdbc.audit" level="WARN" />
+
+    <logger name="org.mybatis" level="DEBUG" />
+    <logger name="org.mybatis.spring.SqlSessionUtils" level="INFO"/>
+    <logger name="com.example" level="DEBUG" />
+
+    <!-- 루트 로거 설정 -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

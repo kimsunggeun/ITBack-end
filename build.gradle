@@ -12,19 +12,43 @@ repositories {
     mavenCentral()
 }
 
+/* ──────────────── ★ 추가: Logback 1.5.6 버전 고정 ★ ─────────────── */
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:3.2.5"
+    }
+    dependencies {
+        // 모든 logback-classic/core 의 버전을 1.5.6 으로 오버라이드
+        dependency 'ch.qos.logback:logback-classic:1.5.6'
+        dependency 'ch.qos.logback:logback-core:1.5.6'
+    }
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
     implementation 'com.microsoft.sqlserver:mssql-jdbc:12.4.2.jre11'
+
+
+    // Janino - Logback JaninoEventEvaluator용
+    implementation 'org.codehaus.janino:janino:3.1.10'
+    implementation 'org.codehaus.janino:commons-compiler:3.1.10'
+
+
+    // JWT
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    // Spring Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
-    implementation 'org.slf4j:slf4j-api:2.0.13'
-    implementation 'ch.qos.logback:logback-classic:1.4.14'
+
+    // JDBC SQL 로깅
     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
 
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
