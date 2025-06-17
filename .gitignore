@@ -1,5 +1,14 @@
-# 로그 파일
-*.log
+# 의존성 관리 툴 lock 파일
+package-lock.json   # npm
+yarn.lock           # Yarn
+pnpm-lock.yaml      # pnpm
+bun.lockb           # Bun
 
-# 로그 디렉토리
-logs/
+# Gradle, Maven
+.gradle/
+**/*.lock           # 모든 .lock 파일 (예: gradle.lockfile 등)
+
+# 기타 툴체인 lock
+*.pid.lock
+*.db.lock
+*.log.lock
